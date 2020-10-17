@@ -9,13 +9,19 @@ def data(request):
     if request.method == "POST":
         try:
             data = request.POST['data']
+            if not data:
+                return render(request,"error.html",{'message':"Bruh Error Occured"})
         except:
             return render(request,"error.html",{'message':"Bruh Error Occured"})
     elif request.method == "GET":
         try:
             data = request.GET['data']
+            if not data:
+                return render(request,"error.html",{'message':"Bruh Error Occured"})
         except:
             return render(request,"error.html",{'message':"Bruh Error Occured"})
+    x = str(base64.b64decode(data))
+    x = parse(x)
     with open(f"./dining/diningdata/{time.time()}.txt","wb") as f:
         x = base64.b64decode(data)
         f.write(x)
