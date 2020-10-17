@@ -20,7 +20,7 @@ class Rating(models.Model):
 class Meal(models.Model):
     meal_id = models.UUIDField(default = uuid4)
     food = models.ManyToMany(Food)
-    shape = models.TextField()
+    type = models.TextField()
 
 class DiningHall(models.Model):
     name = models.TextField()
