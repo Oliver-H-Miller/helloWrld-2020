@@ -15,6 +15,9 @@ def dining_hall_view(request,hall):
     # return render(request, "error.html", {"message":this_hall.name})
     # return render(request, hall_template, context)
 
+def index(request):
+    render(request,"error.html",{"message":""})
+
 
 
 # Create your views here.
