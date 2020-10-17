@@ -1,7 +1,25 @@
 import json
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
+import time
+import base64
 
+@csrf_exempt
+def data(request):
+    if request.method == "POST":
+        try:
+            data = request.POST['data']
+        except:
+            return render(request,"error.html",{'message':"Bruh Error Occured"})
+    elif request.method == "GET":
+        try:
+            data = request.GET['data']
+        except:
+            return render(request,"error.html",{'message':"Bruh Error Occured"})
+    with open(f"./dining/diningdata/{time.time()}.txt","wb") as f:
+        x = base64.b64decode(data)
+        f.write(x)
+    return render(request,"error.html",{"message":"success"})
 
 @csrf_exempt
 def data_practice(request):

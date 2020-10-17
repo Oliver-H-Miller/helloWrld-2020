@@ -16,10 +16,18 @@ class Rating(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,related_name ="ratings")
     rating_id = models.UUIDField(default = uuid4)
 
+class Meal(models.Model):
+    meal_id = models.UUIDField(default = uuid4)
+    food = models.ManyToMany(Food)
+
 class DiningHall(models.Model):
     name = models.TextField()
     avg_wait = models.FloatField()
     curr_wait = models.FloatField()
+    description = models.TextField()
+    breakfast = models.ManyToMany(Meal)
+    lunch = models.ManyToMany(Meal)
+    dinner = models.ManyToMany(Meal)
 
 
 class DiningHallRating(Rating):
