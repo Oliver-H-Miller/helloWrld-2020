@@ -1,0 +1,27 @@
+{%extends "layout.html"%}
+
+
+{%block title%}
+    Dining Halls
+{%endblock%}
+
+{%block head%} 
+    <link rel="stylesheet" href="/static/css/main.css">
+{%endblock%}
+
+{%block body%}
+<div class= "dining_court_container">
+    <div class ="container">
+        <div class = "dcname"><b>{{dining_court}}</b></div>
+        <img class = "dcimage" src="/static/images/{{dining_court}}.JPG" width="30%" height="30%" alt="{{dining_court}}">
+    </div>
+</div>   
+
+<div class= "dining_court_container">
+    <div class ="container">
+        <div class = "dcname"><b>{{dining_court}}</b></div>
+        <img class = "dcimage" src="/static/images/{{dining_court}}.JPG" width="30%" height="30%" alt="{{dining_court}}">
+    </div>
+</div>    
+
+{%endblock%}
