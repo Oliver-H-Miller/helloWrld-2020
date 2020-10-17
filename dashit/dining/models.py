@@ -6,6 +6,7 @@ class Food(models.Model):
     name = models.TextField()
     food_id = models.UUIDField(default=uuid4)
     rating = models.FloatField()
+    type = models.TextField()
 
 class Customer(User):
     phone = models.CharField(max_length=11)
