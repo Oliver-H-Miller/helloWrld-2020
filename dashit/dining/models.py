@@ -19,7 +19,7 @@ class Rating(models.Model):
 
 class Meal(models.Model):
     meal_id = models.UUIDField(default = uuid4)
-    food = models.ManyToMany(Food)
+    food = models.ManyToManyField(Food)
     type = models.TextField()
 
 class DiningHall(models.Model):
@@ -27,9 +27,9 @@ class DiningHall(models.Model):
     avg_wait = models.FloatField()
     curr_wait = models.FloatField()
     description = models.TextField()
-    breakfast = models.ManyToMany(Meal)
-    lunch = models.ManyToMany(Meal)
-    dinner = models.ManyToMany(Meal)
+    breakfast = models.ManyToManyField(Meal,related_name = "breakfast")
+    lunch = models.ManyToManyField(Meal,related_name ="lunch")
+    dinner = models.ManyToManyField(Meal,related_name = "dinner")
 
 
 class DiningHallRating(Rating):
