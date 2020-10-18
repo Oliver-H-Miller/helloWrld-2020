@@ -1,0 +1,32 @@
+.dining_court_container {  
+    border-radius: 3em;
+    padding: 2%;
+    top: 6em; 
+    margin-top: 5%;
+    margin-left: 20%;
+    margin-right: 20%;
+    background-color: #89ABE3;
+    position: relative;
+}
+  
+.container {
+    overflow: auto;
+    position: relative;
+    text-align:center;
+}
+
+.dcname {
+    position: relative;
+    top: 1em;
+    width: 80%;
+    font-family: Gill Sans;
+    font-size: xx-large;
+}
+
+.dcimage {
+    float: left;
+}
+
+.wait_estimate_container {
+    transform: translate(-27%, 700%);
+}
