@@ -5,7 +5,7 @@
       <div>
         <div class="text-block">Jersey Mikes</div>
       </div>
-      <div class="div-block-5">
+      <div class="div-block-5" style = "width:90%;">
         <div class="text-block-2">Current Wait</div>
         <div class="text-block-3">{{current}} Mins</div>
         <script>
@@ -17,10 +17,10 @@
           <script>valueArr.push("{{time.wait}}");</script>
         {% endfor %}
         <canvas id="myChart"></canvas>
-Now that we have a canvas we can use, we need to include Chart.js in our page.
+
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-Now, we can create a chart. We add a script to our page: {{all.wait}}
+{{all.wait}}
 <script>
 var ctx = document.getElementById('myChart').getContext('2d');
 var chart = new Chart(ctx, {
