@@ -16,13 +16,17 @@
 }
 
 .dcname {
-    position:absolute;
+    position: relative;
     top: 1em;
-    width: 75%;
-    font-family: "Gill Sans";
+    width: 80%;
+    font-family: Gill Sans;
     font-size: xx-large;
 }
 
 .dcimage {
     float: left;
+}
+
+.wait_estimate_container {
+    transform: translate(-27%, 700%);
 }
