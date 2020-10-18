@@ -3,7 +3,8 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 import time
 import base64
-
+import datetime
+from .data import *
 @csrf_exempt
 def data(request):
     if request.method == "POST":
@@ -20,10 +21,13 @@ def data(request):
                 return render(request,"error.html",{'message':"Bruh Error Occured"})
         except:
             return render(request,"error.html",{'message':"Bruh Error Occured"})
-    x = parse(x)
-    # with open(f"./dining/diningdata/{time.time()}.txt","wb") as f:
-    #     x = base64.b64decode(data)
-    #     f.write(x)
+    data = base64.b64decode(data)
+    x = parse_current(data)
+    with open(f"./dining/diningdata.txt","a") as f:
+        if x != "F":
+            f.write(f"{x}, time: {datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M')}\n")
+    with open(f"./dining/diningdata/{time.time()}.txt","wb") as f:
+        f.write(data)
     return render(request,"error.html",{"message":"success"})
 
 def commiter(fields):
@@ -64,9 +68,9 @@ def data_practice(request):
 
 def data_received(request):
     if request.method == "GET":
-        with open("f.txt","r") as f:
-            x = ""
+        with open("./dining/diningdata.txt","r") as f:
+            x = []
             for line in f:
-                x += line
+                x.append(line)
 
-        return render(request,"error.html",{"message":x})
+        return render(request,"bruh.html",{"messages":x})
