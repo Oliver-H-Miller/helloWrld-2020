@@ -9,8 +9,9 @@ def server(x):
         return render(request,x)
     return func
 def jmikes(request):
-    time = int(Time.objects.order_by("-id").all()[0].wait)
-    return render(request,"details.html",{"current":time})
+    current = int(Time.objects.order_by("-id").all()[0].wait)
+    times = Time.objects.all()
+    return render(request,"details.html",{"current":current, "all": times})
 def dining_hall_view(request,hall):
 
     # hall_template = [something].html
@@ -38,8 +39,3 @@ def index(request):
     {'name': 'Windsor', 'busy': range(1), 'isLive': False, 'timeEstMin': 11, 'desc': "A dining hall, nothing remarkable. Very good wait times on average."},
     {'name': 'Ford', 'busy': range(1), 'isLive': False, 'timeEstMin': 16, 'desc': "A dining hall, nothing remarkable. Very good wait times on average."},
     ]})
-
-
-
-
-# Create your views here.
