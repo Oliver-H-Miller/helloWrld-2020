@@ -16,7 +16,16 @@ def dining_hall_view(request,hall):
     # return render(request, hall_template, context)
 
 def index(request):
-    return render(request,"main.html",{"dining_courts":["Hillenbrand","Earhart","Wiley","ChickFilA","Windsor","Ford"]})
+    return render(request, 'main.html', {'dining_courts': [
+    {'name': 'JerseyMikes', 'busy': range(5), 'isLive': True},
+    {'name': 'Chick-fil-A', 'busy': range(4), 'isLive': True},
+    {'name': 'Hillenbrand', 'busy': range(2), 'isLive': False},
+    {'name': 'Earhart', 'busy': range(2), 'isLive': False},
+    {'name': 'Wiley', 'busy': range(3), 'isLive': False},
+    {'name': 'Windsor', 'busy': range(1), 'isLive': False},
+    {'name': 'Ford', 'busy': range(1), 'isLive': False},
+    ]})
+
 
 
 

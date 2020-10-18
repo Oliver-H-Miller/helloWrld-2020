@@ -8,19 +8,72 @@
 {%block head%} 
     <link rel="stylesheet" href="/static/css/main.css">
 {%endblock%}
-
 {%block body%}
-{% for dining_court in dining_courts %}
-<div class= "dining_court_container">
-    <div class ="container">
-        <div class = "dcname"><b>{{dining_court}}</b></div>
-        <img class = "dcimage" src="/static/images/{{dining_court}}.JPG" width=30% height=30% alt="{{dining_court}}">
-        <div class = "wait_estimate_container">  
-                <img class = "dot" src = "/static/images/filled-circle.svg" width = 2% height= 2% alt = "dot">
+<style>
+    .live_circle {
+        animation: pulse 2s infinite alternate;
+        border-radius:100%;
+    }
+    @keyframes pulse {
+	0% {
+		transform: scale(1);
+		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+	}
+
+	70% {
+		transform: scale(1);
+		box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+	}
+
+	100% {
+		transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+        opacity:0.5;
+	}
+}
+</style>
+<div class="container">
+    {% for dining_court in dining_courts %}
+    <div class= "dining_court_container">
+        <div class ="container">
+            <div class = "dcname"><b>{{dining_court.name}}</b></div>
+            <img class = "dcimage" src="/static/images/{{dining_court.name}}.JPG" width=30% height=30% alt="{{dining_court}}">
+            <div class = "wait_estimate_container">
+                {% for i in dining_court.busy %}
+                    <img alt="{{dining_court.busy}}" class = "dot" src = "/static/images/filled-circle.svg" width = 2% height= 2% alt = "dot">
+                {% endfor %}
+            </div>
         </div>
     </div>
-</div>   
-{%endfor%}
+    <div class="col s12 m7">
+        <h2 class="header">Horizontal Card</h2>
+        <div class="card horizontal">
+        <div class="card-image">
+            <img src="/static/images/{{dining_court.name}}.JPG">
+        </div>
+        <div class="card-stacked">
+            <div style="text-align: left;" class="card-content">
+            <span class="card-title center activator grey-text text-darken-4">{{dining_court.name}}</span>
+            <p>I am a very simple card. I am good at containing small bits of information.</p>
+            
+            <h5>Activity Indicator:</h5>
+            {% for i in dining_court.busy %}
+                <i class="material-icons">stop_circle</i>
+            {% endfor %}
+            
+            {% if ((dining_court.isLive) and (dining_court|length > 0)) %}
+            <i style="background: -webkit-linear-gradient(#d02ce6, #5ad138);-webkit-background-clip: text;-webkit-text-fill-color: transparent;" class="material-icons live_circle">stop_circle</i>
+                <span class="live_tag"><i style="background: -webkit-linear-gradient(#d02ce6, #5ad138);-webkit-background-clip: text;-webkit-text-fill-color: transparent;"><b>LIVE</b></i></span>
+            {% endif %}
+            </div>
+            <div class="card-action" style="background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(210,210,210,1) 75%, rgba(167,167,167,1) 100%);border:0px solid transparent;">
+                <a style="background:#C28E0E;border-radius:10px;" class="waves-effect waves-light btn-large"><i class="material-icons right">launch</i><b>Open Detailed View</b></a>
+            </div>
+        </div>
+        </div>
+    </div>
+    {%endfor%}
+</div>
 
 
 
