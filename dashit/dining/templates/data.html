@@ -1,0 +1,42 @@
+{%extends "layout.html" %}
+{%blockbody%}
+  <div class="div-block">
+    <div class="div-block-4">
+      <div>
+        <div class="text-block">Jersey Mikes</div>
+      </div>
+      <div class="div-block-5"></div>
+      <div class="div-block-6">
+        <div class="div-block-7">Current Wait Time: X</div>
+        <div class="div-block-7">Average Wait Time: X</div>
+        <div class="div-block-7">Raw Data: </div>
+      </div>
+      <div class="div-block-10">
+        <div class="div-block-11">
+          <div>
+            <div>Devices</div>
+          </div>
+          <div>
+            <div>Time Stamp</div>
+          </div>
+          <div>
+            <div>Predicted Wait</div>
+          </div>
+        </div>
+        {%for data in datas%}
+        <div class="div-block-11">
+          <div>
+            <div>Devices</div>
+          </div>
+          <div>
+            <div>Time Stamp</div>
+          </div>
+          <div>
+            <div>Predicted Wait</div>
+          </div>
+        </div>
+        {%endfor%}
+      </div>
+    </div>
+  </div>
+{%endblock%}

@@ -8,6 +8,7 @@ import time
 valued = []
 values = []
 devices = []
+from .models import *
 
 
 
@@ -65,9 +66,12 @@ def parse(data):
     # print(counter)
     # print(parse(l))
 def main():
-    x ="hype"
-    # loadFiles()
+    loadFiles()
+
 def loadFiles():
+    # data = Time.objects.all()
+    # for d in data:
+    #     d.delete()
     cwd = os.getcwd()
     mypath = cwd + "/dining/diningdata/"
     onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
@@ -79,7 +83,7 @@ def loadFiles():
             if type(l) is not type("bruh") and l is not 0:
                 time = float(file.strip(".txt"))
                 curr_time = datetime.datetime.fromtimestamp(time) - datetime.timedelta(hours = 4)
-                values.append({"value":l,"time":curr_time.strftime('%Y-%m-%d %H:%M')})
+                values.append({"value":l,"time":curr_time})
                 f.write(f"{l}      Time:{curr_time.strftime('%Y-%m-%d %H:%M')}\n")
             # if l and isinstance(l,int):
             #     f.write(f"{l}\n")
@@ -91,7 +95,8 @@ def loadFiles():
         #     f.write(f"{valued[i]['wait']}\n")
     with open("./dining/diningdata.txt","w") as f:
         for i in range(len(valued)):
-            f.write(f"{valued[i]['value']} time: {valued[i]['time']}, wait: {valued[i]['wait']}\n")
+            f.write(f"{valued[i]['value']},{valued[i]['time']},{valued[i]['wait']}\n")
+            # Time.objects.create(devices = valued[i]['value'],time = valued[i]['time'],wait=valued[i]['wait'])
     # print(len(valued))
 def getvalued(value,i):
     list = []
@@ -127,9 +132,6 @@ def coolmath(list,value):
     temp = int(((sum(list)/len(list))-value*randomconstant) * timeconstant - waittimeconstant)
     return temp if temp > 0 else 0
 
-
+loadFiles()
 if __name__ == '__main__':
     main()
-
-
-loadFiles()

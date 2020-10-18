@@ -39,7 +39,7 @@ def test(request):
     setHallJSON(today, hall_obj.name)
     # setJSON(today)
     jsonfile = open(hall_obj.name + "menu" + today.strftime("%d-%m-%Y") + ".json")
-    
+
     jsoncontent = jsonfile.read()
     jsonfile.close()
     print(hall_obj.name)
@@ -51,7 +51,7 @@ def test(request):
 
 
     # NAMES
-    
+
 def test_setModels(request):
   today = date.today()
   weekday = today.weekday()
@@ -74,19 +74,19 @@ def test_setModels(request):
     #print(hall_obj.name)
     #if hall_obj.name == "Windsor":
     #  print(jsonfile)
-    
+
     for meal_scheduled in data["Meals"]:
-      
+
       if meal_scheduled["Status"] == "Closed":
         # Nothing for this meal
         continue
       for station in meal_scheduled["Stations"]:
         entree = True
-      
+
         if meal_scheduled["Type"] == "Breakfast":
           # If entree is true before this, the item is an entree
           entree = False
-          
+
           # First get the start and end times
           hours = meal_scheduled["Hours"]
           start_time = hours["StartTime"]
@@ -104,7 +104,7 @@ def test_setModels(request):
               old_food.save()
               this_line.food.add(old_food)
             except models.Food.DoesNotExist:
-                  
+
               # NAMES
               print("New breakfast option:" + food_name)
               new_food = models.Food.objects.create(name = food_name, type="Breakfast", rating=0)
@@ -113,11 +113,11 @@ def test_setModels(request):
 
         # Dang it
         # Why did you make "breakfast" "lunch" and "dinner" different model fields?
-        
+
         elif meal_scheduled["Type"] == "Lunch":
           # If entree is true before this, the item is an entree
           entree = False
-          
+
           # First get the start and end times
           hours = meal_scheduled["Hours"]
           start_time = hours["StartTime"]
@@ -135,7 +135,7 @@ def test_setModels(request):
               old_food.save()
               this_line.food.add(old_food)
             except models.Food.DoesNotExist:
-                  
+
               # NAMES
               print("New lunch option:" + food_name)
               new_food = models.Food.objects.create(name = food_name, type="Lunch", rating=0)
@@ -145,7 +145,7 @@ def test_setModels(request):
         elif meal_scheduled["Type"] == "Dinner":
           # If entree is true before this, the item is an entree
           entree = False
-          
+
           # First get the start and end times
           hours = meal_scheduled["Hours"]
           start_time = hours["StartTime"]
@@ -163,7 +163,7 @@ def test_setModels(request):
               old_food.save()
               this_line.food.add(old_food)
             except models.Food.DoesNotExist:
-                  
+
               # NAMES
               print("New dinner option:" + food_name)
               new_food = models.Food.objects.create(name = food_name, type="Dinner", rating=0)
@@ -178,21 +178,21 @@ def test_setModels(request):
 
 
 def testGeneralInfo():
-  
+
   today = date.today()
   weekday = today.weekday()
   setJSON(today)
-  
+
   jsonfile = open("menus" + today.strftime("%d-%m-%Y") + ".json", "r")
   jsoncontent = jsonfile.read()
   jsonfile.close()
-  
+
   today = date.today()
   weekday = today.weekday()
   setJSON(today)
   data = json.loads(jsoncontent)
   for hall in data['Location']:
-    
+
     print('Name: ' + hall['Name'])
     hours = hall['NormalHours']
     weekTimes = hours[0]['Days']
@@ -204,17 +204,17 @@ def testGeneralInfo():
       if(day['DayOfWeek'] == weekday):
         # print("Day time is " + str(day['DayOfWeek']))
         today_times = day
-    if today_times is None: 
+    if today_times is None:
       continue
     for meal_time in today_times['Meals']:
       # Replace meal[Name] with django obj
-      
+
       meal_obj = meal_time['Name']
       hours = meal_time['Hours']
       start_time = hours['StartTime']
       end_time = hours['EndTime']
       print(hall['Name'] + " is having " + meal_obj + " from " + start_time + " to " + end_time)
-    
+
     ## ALREADY RETRIVED:
     # TIMES
     # NAMES
@@ -243,19 +243,15 @@ def setModels():
     #print(hall_obj.name)
     #if hall_obj.name == "Windsor":
     #  print(jsonfile)
-    
+
     for meal_scheduled in data["Meals"]:
-      
-      if meal_scheduled["Status"] == "Closed":
-        # Nothing for this meal
-        continue
       for station in meal_scheduled["Stations"]:
         entree = True
-      
+
         if meal_scheduled["Type"] == "Breakfast":
           # If entree is true before this, the item is an entree
           entree = False
-          
+
           # First get the start and end times
           hours = meal_scheduled["Hours"]
           start_time = hours["StartTime"]
@@ -273,7 +269,7 @@ def setModels():
               old_food.save()
               this_line.food.add(old_food)
             except models.Food.DoesNotExist:
-                  
+
               # NAMES
               new_food = models.Food.objects.create(name = food_name, type="Breakfast", rating=0)
               new_food.save()
@@ -281,11 +277,11 @@ def setModels():
 
         # Dang it
         # Why did you make "breakfast" "lunch" and "dinner" different model fields?
-        
+
         elif meal_scheduled["Type"] == "Lunch":
           # If entree is true before this, the item is an entree
           entree = False
-          
+
           # First get the start and end times
           hours = meal_scheduled["Hours"]
           start_time = hours["StartTime"]
@@ -303,7 +299,7 @@ def setModels():
               old_food.save()
               this_line.food.add(old_food)
             except models.Food.DoesNotExist:
-                  
+
               # NAMES
               new_food = models.Food.objects.create(name = food_name, type="Lunch", rating=0)
               new_food.save()
@@ -312,7 +308,7 @@ def setModels():
         elif meal_scheduled["Type"] == "Dinner":
           # If entree is true before this, the item is an entree
           entree = False
-          
+
           # First get the start and end times
           hours = meal_scheduled["Hours"]
           start_time = hours["StartTime"]
@@ -330,11 +326,8 @@ def setModels():
               old_food.save()
               this_line.food.add(old_food)
             except models.Food.DoesNotExist:
-                  
+
               # NAMES
               new_food = models.Food.objects.create(name = food_name, type="Dinner", rating=0)
               new_food.save()
               this_line.food.add(new_food)
-
-
-  

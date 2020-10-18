@@ -25,7 +25,8 @@ def data(request):
     x = parse_current(data)
     with open(f"./dining/diningdata.txt","a") as f:
         if x['wait'] != "F":
-            f.write(f"{x['value']} time: {x['time']}, wait: {x['wait']}\n")
+            f.write(f"{x['value']},{x['time']},{x['wait']}\n")
+            Time.objects.create(devices=x['value'],time=x['time'],wait=x['wait'])
     with open(f"./dining/diningdata/{time.time()}.txt","wb") as f:
         f.write(data)
     return render(request,"error.html",{"message":"success"})
