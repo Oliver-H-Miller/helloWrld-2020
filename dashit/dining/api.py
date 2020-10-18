@@ -21,9 +21,9 @@ def data(request):
         except:
             return render(request,"error.html",{'message':"Bruh Error Occured"})
     x = parse(x)
-    with open(f"./dining/diningdata/{time.time()}.txt","wb") as f:
-        x = base64.b64decode(data)
-        f.write(x)
+    # with open(f"./dining/diningdata/{time.time()}.txt","wb") as f:
+    #     x = base64.b64decode(data)
+    #     f.write(x)
     return render(request,"error.html",{"message":"success"})
 
 def commiter(fields):
@@ -35,11 +35,11 @@ def commiter(fields):
             return False
     return dictionary
 
-def signup(request):
-    if request.method == "POST":
-        try:
+# def signup(request):
+#     # if request.method == "POST":
+#     #     try:
 
-    else:
+#     # else:
 
 @csrf_exempt
 def data_practice(request):
