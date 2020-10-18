@@ -74,9 +74,10 @@ def data_practice(request):
 
 def data_received(request):
     if request.method == "GET":
-        with open("./dining/diningdata.txt","r") as f:
-            x = []
-            for line in f:
-                x.append(line)
-
-        return render(request,"bruh.html",{"messages":x})
+        data = Time.objects.all()
+        current = Time.objects.order_by("-id").all()[0]
+        avg = 0
+        for dat in data:
+            avg += dat.wait
+        avg/=len(data)
+        return render(request,"data.html",{"current":current,"average":avg,"datas":data})
