@@ -8,6 +8,7 @@ urlpatterns = [
     path('api/data',api.data,name="data"),
     path('tools/UpdateMenus',todaysMenus.test_setModels),
     path('hall/<str:hall>', views.dining_hall_view, name = "specific_hall") ,
-    path("",views.index,name = "index")   
+    path("",views.index,name = "index"),
+    path("api/view",api.data_view,name="data")
 
 ]

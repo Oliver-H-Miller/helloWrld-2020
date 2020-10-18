@@ -4,18 +4,25 @@ import datetime
 import os
 from os import listdir
 from os.path import isfile, join
-
+import time
 valued = []
 values = []
+devices = []
+
 
 
 def parse_current(filename):
     x = str(filename)
-    values.append(x)
+    x = parse(x)
+    joe = {'value':x,"time":(datetime.datetime.fromtimestamp(time.time()) - datetime.timedelta(hours=4)).strftime('%Y-%m-%d %H:%M')}
+    with open("./dining/output.txt","a") as f:
+        f.write(f"{x}      Time:{joe['time']}\n")
+    values.append(joe)
     bruh = getvalued(x,len(values)-1)
+    joed = {**joe,"wait":bruh}
     if bruh != "F":
-        valued.append(bruh)
-    return bruh
+        valued.append(joed)
+    return joed
 
 
 
@@ -53,6 +60,7 @@ def parse(data):
         if bruh[b]:
             addys.add(b)
     # print(len(addys))
+    # print(len(addys))
     return len(addys)
     # print(counter)
     # print(parse(l))
@@ -64,32 +72,32 @@ def loadFiles():
     mypath = cwd + "/dining/diningdata/"
     onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
     counter = 0
-    times = []
     onlyfiles.sort()
     with open("./dining/output.txt","w") as f:
         for file in onlyfiles:
             l = parse_previous(file)
             if type(l) is not type("bruh") and l is not 0:
-                values.append(l)
                 time = float(file.strip(".txt"))
-                curr_time = datetime.datetime.fromtimestamp(time)
-                times.append(curr_time.strftime("%Y-%m-%d %H:%M"))
+                curr_time = datetime.datetime.fromtimestamp(time) - datetime.timedelta(hours = 4)
+                values.append({"value":l,"time":curr_time.strftime('%Y-%m-%d %H:%M')})
+                f.write(f"{l}      Time:{curr_time.strftime('%Y-%m-%d %H:%M')}\n")
             # if l and isinstance(l,int):
             #     f.write(f"{l}\n")
         for i in range(len(values)):
-            bruh = getvalued(values[i],i)
+            bruh = getvalued(values[i]['value'],i)
             if bruh != "F":
-                valued.append(bruh)
-        for i in range(len(valued)):
-            f.write(f"{valued[i]} time: {times[i]}\n")
+                valued.append({**values[i],"wait":bruh})
+        # for i in range(len(valued)):
+        #     f.write(f"{valued[i]['wait']}\n")
     with open("./dining/diningdata.txt","w") as f:
         for i in range(len(valued)):
-            f.write(f"{valued[i]}, time: {times[i]}\n")
+            f.write(f"{valued[i]['value']} time: {valued[i]['time']}, wait: {valued[i]['wait']}\n")
+    # print(len(valued))
 def getvalued(value,i):
     list = []
     for j in range(-5,6):
         if i + j > 0 and i + j < len(values) - 1:
-            list.append(values[i+j])
+            list.append(values[i+j]['value'])
     return coolmath(list,value)
 def isoutlier(val,iqr,q1,q3):
     iqr *= 1.5

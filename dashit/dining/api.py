@@ -24,8 +24,8 @@ def data(request):
     data = base64.b64decode(data)
     x = parse_current(data)
     with open(f"./dining/diningdata.txt","a") as f:
-        if x != "F":
-            f.write(f"{x}, time: {datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M')}\n")
+        if x['wait'] != "F":
+            f.write(f"{x['value']} time: {x['time']}, wait: {x['wait']}\n")
     with open(f"./dining/diningdata/{time.time()}.txt","wb") as f:
         f.write(data)
     return render(request,"error.html",{"message":"success"})
@@ -44,7 +44,12 @@ def commiter(fields):
 #
 #     else:
 
-
+def data_view(request):
+    x = []
+    with open("./dining/output.txt","r") as f:
+        for line in f:
+            x.append(line.strip("\n"))
+    return render(request,"bruh.html",{"messages":x})
 @csrf_exempt
 def data_practice(request):
     if request.method == "POST":

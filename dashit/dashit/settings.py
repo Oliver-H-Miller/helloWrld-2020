@@ -25,7 +25,7 @@ SECRET_KEY = 'mizbma5et$&59r2!lb1ymqn4w1%supqvwywdwko+cq!s0n(udf'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['minecraft.dashit.live','127.0.0.1', 'https://6478c7d5-9e60-43d9-af45-e6bb6044cdaf-8000.apps.codespaces.githubusercontent.com/', 'localhost', 'https://6478c7d5-9e60-43d9-af45-e6bb6044cdaf-8000.apps.codespaces.githubusercontent.com']
+ALLOWED_HOSTS = ['minecraft.dashit.live','127.0.0.1','dashit.live','www.dashit.live', 'https://6478c7d5-9e60-43d9-af45-e6bb6044cdaf-8000.apps.codespaces.githubusercontent.com/', 'localhost', 'https://6478c7d5-9e60-43d9-af45-e6bb6044cdaf-8000.apps.codespaces.githubusercontent.com']
 
 
 # Application definition
