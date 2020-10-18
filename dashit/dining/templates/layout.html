@@ -2,6 +2,11 @@
 
 <html>
 <head>
+   <!-- Compiled and minified CSS -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   <!-- Compiled and minified JavaScript -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <meta charset="utf-8">
   <title>
   {%block title%}
@@ -10,14 +15,14 @@
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <link href="/static/css/hellowrld.css" rel="stylesheet" type="text/css">
   <link href="/static/css/normalize.css" rel="stylesheet" type="text/css">
-  <link href="/static/css/webflow.css" rel="stylesheet" type="text/css">
+  <!-- <link href="/static/css/webflow.css" rel="stylesheet" type="text/css"> -->
   <link href="/static/images/favicon.ico" rel="shortcut icon" type="image/x-icon">
   <link href="/static/images/webclip.png" rel="apple-touch-icon">
   {%block head%}
   {%endblock%}
 </head>
 <body>
-  <header id="nav" class="sticky-nav">
+  <header id="nav" style="z-index:999;" class="sticky-nav">
     <div class="div-block-2">
       <div><img src="/static/images/dash.png" loading="lazy" width="234" srcset="/static/images/dash.png 500w, /static/images/dash.png 800w, /static/images/dash.png 1051w" sizes="(max-width: 479px) 100vw, (max-width: 767px) 36vw, 234px" alt="" class="image"></div>
       <div class="div-block-3"><a href="#" class="link">Dining Halls</a><a href="#" class="link">Home</a></div>
