@@ -9,6 +9,8 @@ class Food(models.Model):
     rating = models.FloatField()
     type = models.TextField()
     line = models.TextField()
+    def __str__(self):
+        return self.name
 
 class Customer(User):
     phone = models.CharField(max_length=11)
@@ -25,6 +27,8 @@ class Meal(models.Model):
     type = models.TextField()
     start_time = models.CharField(max_length=8)
     end_time = models.CharField(max_length=8)
+    def __str__(self):
+        return f"{self.type} - {self.food}"
 
 class DiningHall(models.Model):
     name = models.TextField()
@@ -34,22 +38,28 @@ class DiningHall(models.Model):
     breakfast = models.ManyToManyField(Meal,related_name = "breakfast")
     lunch = models.ManyToManyField(Meal,related_name ="lunch")
     dinner = models.ManyToManyField(Meal,related_name = "dinner")
+    def __str__(self):
+        return self.name
 
 
 class DiningHallRating(Rating):
     dining_hall = models.OneToOneField(DiningHall,on_delete=models.CASCADE,related_name="ratings")
+    def __str__(self):
+        return f"{self.rating} - {self.dininghall}"
 
 class FoodRating(Rating):
     food = models.OneToOneField(Food,on_delete=models.CASCADE,related_name="ratings")
+    def __str__(self):
+        return f"{self.rating} - {self.food}"
 
 class Comment(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,related_name = "comments")
     comment = models.TextField()
     like = models.IntegerField()
-
+    def __str__(self):
+        return f"{self.comment} - {self.user}"
 class FoodComment(Comment):
     food = models.OneToOneField(Food,on_delete=models.CASCADE,related_name = "comments")
-
 class DiningHallComment(Comment):
     dining_hall = models.OneToOneField(DiningHall,on_delete=models.CASCADE,related_name="comments")
 
@@ -57,6 +67,7 @@ class Queue(models.Model):
     dining_hall = models.ForeignKey(DiningHall,on_delete=models.CASCADE,related_name ="queue")
     user = models.ForeignKey(User,on_delete=models.CASCADE,related_name="queue")
     time = models.IntegerField()
+
 
 def instantiateHalls():
     DiningHall.objects.all().delete()
@@ -72,5 +83,3 @@ def instantiateHalls():
 
 
     wiley = DiningHall.objects.create(name = "Wiley", avg_wait = 0, curr_wait = 0, description = "The Wiley dining court.")
-
-
