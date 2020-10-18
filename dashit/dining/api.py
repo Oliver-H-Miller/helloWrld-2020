@@ -71,13 +71,17 @@ def data_practice(request):
                 return render(request,"error.html",{'message':"Bruh Error Occurred"})
 
         return render(request,"error.html",{"message":"Success"})
-
+def temp(obj):
+    return -1 * obj.wait
 def data_received(request):
     if request.method == "GET":
         data = Time.objects.all()
         current = Time.objects.order_by("-id").all()[0]
+        beta = [*data]
+        beta.sort(key = temp)
+        max = beta[0]
         avg = 0
         for dat in data:
             avg += dat.wait
         avg/=len(data)
-        return render(request,"data.html",{"current":current,"average":avg,"datas":data})
+        return render(request,"data.html",{"current":current,"average":avg,"datas":data,"max":max})
