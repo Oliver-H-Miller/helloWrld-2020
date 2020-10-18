@@ -11,7 +11,7 @@
 {%block body%}
 <style>
     .live_circle {
-        animation: pulse 2s infinite alternate;
+        animation: pulse 1.25s infinite;
         border-radius:100%;
     }
     @keyframes pulse {
@@ -28,7 +28,6 @@
 	100% {
 		transform: scale(1);
         box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-        opacity:0.5;
 	}
 }
 </style>
@@ -61,7 +60,7 @@
                 <i class="material-icons">stop_circle</i>
             {% endfor %}
             
-            {% if ((dining_court.isLive) and (dining_court|length > 0)) %}
+            {% if dining_court.isLive and dining_court|length > 0 %}
             <i style="background: -webkit-linear-gradient(#d02ce6, #5ad138);-webkit-background-clip: text;-webkit-text-fill-color: transparent;" class="material-icons live_circle">stop_circle</i>
                 <span class="live_tag"><i style="background: -webkit-linear-gradient(#d02ce6, #5ad138);-webkit-background-clip: text;-webkit-text-fill-color: transparent;"><b>LIVE</b></i></span>
             {% endif %}
