@@ -35,11 +35,10 @@ def commiter(fields):
             return False
     return dictionary
 
-def signup(request):
-    if request.method == "POST":
-        try:
-
-    else:
+# def signup(request):
+#     if request.method == "POST":
+#
+#     else:
 
 @csrf_exempt
 def data_practice(request):
