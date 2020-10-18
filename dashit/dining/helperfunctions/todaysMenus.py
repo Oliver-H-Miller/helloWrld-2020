@@ -52,7 +52,7 @@ def test(request):
 
     # NAMES
     
-def test_models(request):
+def test_setModels(request):
   today = date.today()
   weekday = today.weekday()
   jsoncontent = ""
@@ -220,3 +220,119 @@ def testGeneralInfo():
     ## Menu items not found in API.
 
 
+def setModels():
+  today = date.today()
+  weekday = today.weekday()
+  jsoncontent = ""
+  models.instantiateHalls()
+  for hall_obj in models.DiningHall.objects.all():
+    setHallJSON(today, hall_obj.name)
+    # setJSON(today)
+    jsonfile = open(hall_obj.name + "menu" + today.strftime("%d-%m-%Y") + ".json")
+    jsoncontent = jsonfile.read()
+    jsonfile.close()
+    try:
+      data = json.loads(jsoncontent)
+    except:
+      # Silently ignore
+      continue
+    # Json file created.
+
+    #print(hall_obj.name)
+    #if hall_obj.name == "Windsor":
+    #  print(jsonfile)
+    
+    for meal_scheduled in data["Meals"]:
+      
+      if meal_scheduled["Status"] == "Closed":
+        # Nothing for this meal
+        continue
+      for station in meal_scheduled["Stations"]:
+        entree = True
+      
+        if meal_scheduled["Type"] == "Breakfast":
+          # If entree is true before this, the item is an entree
+          entree = False
+          
+          # First get the start and end times
+          hours = meal_scheduled["Hours"]
+          start_time = hours["StartTime"]
+          end_time = hours["EndTime"]
+          this_line = models.Meal.objects.create(type = station["Name"], start_time = "", end_time = "")
+          this_line.save()
+          # then instantiate a new meal
+          hall_obj.breakfast.add(this_line)
+          # line added. Time to add the food options
+
+          for item in station["Items"]:
+            food_name = item["Name"]
+            try:
+              old_food = models.Food.objects.get(name = food_name)
+              old_food.save()
+              this_line.food.add(old_food)
+            except models.Food.DoesNotExist:
+                  
+              # NAMES
+              new_food = models.Food.objects.create(name = food_name, type="Breakfast", rating=0)
+              new_food.save()
+              this_line.food.add(new_food)
+
+        # Dang it
+        # Why did you make "breakfast" "lunch" and "dinner" different model fields?
+        
+        elif meal_scheduled["Type"] == "Lunch":
+          # If entree is true before this, the item is an entree
+          entree = False
+          
+          # First get the start and end times
+          hours = meal_scheduled["Hours"]
+          start_time = hours["StartTime"]
+          end_time = hours["EndTime"]
+          this_line = models.Meal.objects.create(type = station["Name"], start_time = "", end_time = "")
+          this_line.save()
+          # then instantiate a new meal
+          hall_obj.lunch.add(this_line)
+          # line added. Time to add the food options
+
+          for item in station["Items"]:
+            food_name = item["Name"]
+            try:
+              old_food = models.Food.objects.get(name = food_name)
+              old_food.save()
+              this_line.food.add(old_food)
+            except models.Food.DoesNotExist:
+                  
+              # NAMES
+              new_food = models.Food.objects.create(name = food_name, type="Lunch", rating=0)
+              new_food.save()
+              this_line.food.add(new_food)
+
+        elif meal_scheduled["Type"] == "Dinner":
+          # If entree is true before this, the item is an entree
+          entree = False
+          
+          # First get the start and end times
+          hours = meal_scheduled["Hours"]
+          start_time = hours["StartTime"]
+          end_time = hours["EndTime"]
+          this_line = models.Meal.objects.create(type = station["Name"], start_time = "", end_time = "")
+          this_line.save()
+          # then instantiate a new meal
+          hall_obj.lunch.add(this_line)
+          # line added. Time to add the food options
+
+          for item in station["Items"]:
+            food_name = item["Name"]
+            try:
+              old_food = models.Food.objects.get(name = food_name)
+              old_food.save()
+              this_line.food.add(old_food)
+            except models.Food.DoesNotExist:
+                  
+              # NAMES
+              new_food = models.Food.objects.create(name = food_name, type="Dinner", rating=0)
+              new_food.save()
+              this_line.food.add(new_food)
+
+
+  
