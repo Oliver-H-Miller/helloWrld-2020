@@ -1,0 +1,12 @@
+{%extends "layout.html"%}
+
+{%block title%}YUH{%endblock%}
+
+
+{%block body%}
+{%for message in messages%}
+<div>
+  {{message}}
+</div>
+{%endfor%}
+{%endblock%}

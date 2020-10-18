@@ -7,7 +7,6 @@ import os
 from os import listdir
 from os.path import isfile, join
 
-
 def parse_now(x):
     data = str(base64.b64decode(x))
     p = re.compile(r'(?:[0-9a-fA-F]:?){12}')
@@ -50,14 +49,7 @@ def parse_previous(filename):
     p = re.compile(r'(?:[0-9a-fA-F]:?){12}')
     pattern = re.compile(r'RSSI: (.\d\d)')
     macAddr = re.findall(p, data)
-    signalStr = re.findall(pattern, data)
-    avg = 0
-    if len(signalStr) != 0:
-        for sig in signalStr:
-            avg += int(sig)
-        avg/= len(signalStr)
-        avg += 100
-        print(avg)
+    # signalStr = re.findall(pattern, data)
     # results = [macAddr, signalStr]
     time = float(filename.strip(".txt"))
     curr_time = datetime.datetime.fromtimestamp(time)
@@ -84,7 +76,7 @@ def parse_previous(filename):
         sum += complete['time']
     if len(completed) > 0:
         print(f"Filename:{filename} Count:{len(completed)} MacAddr:{len(macAddr)}")
-    return (0 if not len(completed) else sum.total_seconds()/(60*len(completed))) * avg
+    return 0 if not len(completed) else sum.total_seconds()/(60*len(completed))
 
 # def parse_previous(filename):
 #     x = ""
@@ -146,31 +138,13 @@ def main():
     mypath = cwd + "/diningdata/"
     onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
     counter = 0
-    values = []
-    times = []
-    valued = []
-    onlyfiles.sort()
     with open("output.txt","w") as f:
         for file in onlyfiles:
             l = parse_previous(file)
-            if type(l) is not type("bruh") and l is not 0:
-                values.append(l)
-                time = float(file.strip(".txt"))
-                curr_time = datetime.datetime.fromtimestamp(time)
-                times.append(curr_time.strftime("%Y-%m-%d %H:%M"))
+            if l is not 0:
+                f.write(f"{l}\n")
             # if l and isinstance(l,int):
             #     f.write(f"{l}\n")
-        for i in range(len(values)):
-            list = []
-            for j in range(-2,3):
-                if i + j > 0 and i + j < len(values) - 1:
-                    list.append(values[i+j])
-            sum = 0
-            for li in list:
-                sum += li
-            valued.append(sum/len(list))
-        for i in range(len(valued)):
-            f.write(f"{valued[i]} timestamp:{times[i]}\n")
     # print(counter)
     # print(parse(l))
 if __name__ == '__main__':
