@@ -16,7 +16,7 @@ def dining_hall_view(request,hall):
     # return render(request, hall_template, context)
 
 def index(request):
-    return render(request,"main.html",{"dining_court":"ChickFilA"})
+    return render(request,"main.html",{"dining_court":"Hillenbrand"})
 
 
 
