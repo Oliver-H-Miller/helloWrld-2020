@@ -1,12 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
 from uuid import uuid4
+
 # Create your models here.
 class Food(models.Model):
     name = models.TextField()
     food_id = models.UUIDField(default=uuid4)
     rating = models.FloatField()
     type = models.TextField()
+    line = models.TextField()
 
 class Customer(User):
     phone = models.CharField(max_length=11)
@@ -21,6 +23,8 @@ class Meal(models.Model):
     meal_id = models.UUIDField(default = uuid4)
     food = models.ManyToManyField(Food)
     type = models.TextField()
+    start_time = models.CharField(max_length=8)
+    end_time = models.CharField(max_length=8)
 
 class DiningHall(models.Model):
     name = models.TextField()
@@ -53,3 +57,20 @@ class Queue(models.Model):
     dining_hall = models.ForeignKey(DiningHall,on_delete=models.CASCADE,related_name ="queue")
     user = models.ForeignKey(User,on_delete=models.CASCADE,related_name="queue")
     time = models.IntegerField()
+
+def instantiateHalls():
+    DiningHall.objects.all().delete()
+    windsor = DiningHall.objects.create(name = "Windsor", avg_wait = 0, curr_wait = 0, description = "The Windsor dining court.")
+
+    earhart = DiningHall.objects.create(name = "Earhart", avg_wait = 0, curr_wait = 0, description = "The Earhart dining court.")
+
+
+    ford = DiningHall.objects.create(name = "Ford", avg_wait = 0, curr_wait = 0, description = "The Ford dining court.")
+
+
+    hillenbrand = DiningHall.objects.create(name = "Hillenbrand", avg_wait = 0, curr_wait = 0, description = "The Ford dining court.")
+
+
+    wiley = DiningHall.objects.create(name = "Wiley", avg_wait = 0, curr_wait = 0, description = "The Wiley dining court.")
+
+
